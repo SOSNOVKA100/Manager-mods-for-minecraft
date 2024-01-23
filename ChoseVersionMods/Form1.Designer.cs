@@ -30,17 +30,16 @@
         {
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.btnAction = new System.Windows.Forms.Button();
+            this.LText2 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.CurrentVersion = new System.Windows.Forms.ComboBox();
             this.LText1 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.ChoseVersion = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.LText2 = new System.Windows.Forms.Label();
-            this.btnAction = new System.Windows.Forms.Button();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
@@ -73,13 +72,68 @@
             this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.CurrentVersion);
             this.panel1.Controls.Add(this.LText1);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.ChoseVersion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 116);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(334, 286);
             this.panel1.TabIndex = 1;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkBox5.Enabled = false;
+            this.checkBox5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox5.Location = new System.Drawing.Point(212, 166);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(78, 28);
+            this.checkBox5.TabIndex = 10;
+            this.checkBox5.Text = "Готовность 2";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkBox4.Enabled = false;
+            this.checkBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox4.Location = new System.Drawing.Point(41, 166);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(69, 28);
+            this.checkBox4.TabIndex = 9;
+            this.checkBox4.Text = "Готовность";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // btnAction
+            // 
+            this.btnAction.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAction.Location = new System.Drawing.Point(123, 203);
+            this.btnAction.Name = "btnAction";
+            this.btnAction.Size = new System.Drawing.Size(90, 23);
+            this.btnAction.TabIndex = 8;
+            this.btnAction.Text = "Подготовить";
+            this.btnAction.UseVisualStyleBackColor = true;
+            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
+            // 
+            // LText2
+            // 
+            this.LText2.AutoSize = true;
+            this.LText2.Font = new System.Drawing.Font("Papyrus", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LText2.Location = new System.Drawing.Point(37, 115);
+            this.LText2.Name = "LText2";
+            this.LText2.Size = new System.Drawing.Size(253, 21);
+            this.LText2.TabIndex = 7;
+            this.LText2.Text = "Выберите какую версию подготовить";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(140, 286);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "label2";
             // 
             // checkBox3
             // 
@@ -129,16 +183,6 @@
             this.LText1.Text = "                     Выберите текущую версию\r\nЭто очень важно для первого запуска" +
     " программы\r\n";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label1.Location = new System.Drawing.Point(140, 258);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
-            // 
             // ChoseVersion
             // 
             this.ChoseVersion.FormattingEnabled = true;
@@ -148,62 +192,6 @@
             this.ChoseVersion.TabIndex = 0;
             this.ChoseVersion.Text = "Не выбран";
             this.ChoseVersion.SelectedIndexChanged += new System.EventHandler(this.ChoseVersion_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(140, 286);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "label2";
-            // 
-            // LText2
-            // 
-            this.LText2.AutoSize = true;
-            this.LText2.Font = new System.Drawing.Font("Papyrus", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LText2.Location = new System.Drawing.Point(37, 115);
-            this.LText2.Name = "LText2";
-            this.LText2.Size = new System.Drawing.Size(253, 21);
-            this.LText2.TabIndex = 7;
-            this.LText2.Text = "Выберите какую версию подготовить";
-            // 
-            // btnAction
-            // 
-            this.btnAction.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAction.Location = new System.Drawing.Point(123, 203);
-            this.btnAction.Name = "btnAction";
-            this.btnAction.Size = new System.Drawing.Size(90, 23);
-            this.btnAction.TabIndex = 8;
-            this.btnAction.Text = "Подготовить";
-            this.btnAction.UseVisualStyleBackColor = true;
-            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.checkBox4.Enabled = false;
-            this.checkBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox4.Location = new System.Drawing.Point(41, 166);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(69, 28);
-            this.checkBox4.TabIndex = 9;
-            this.checkBox4.Text = "Готовность";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.checkBox5.Enabled = false;
-            this.checkBox5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox5.Location = new System.Drawing.Point(212, 166);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(78, 28);
-            this.checkBox5.TabIndex = 10;
-            this.checkBox5.Text = "Готовность 2";
-            this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -256,7 +244,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox ChoseVersion;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LText1;
         private System.Windows.Forms.ComboBox CurrentVersion;
         private System.Windows.Forms.CheckBox checkBox3;
