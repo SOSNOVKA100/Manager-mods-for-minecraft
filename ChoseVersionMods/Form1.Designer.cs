@@ -42,6 +42,8 @@
             this.ChoseVersion = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.Search_Click = new System.Windows.Forms.OpenFileDialog();
+            this.btnLocalSearch = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +65,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.btnLocalSearch);
             this.panel1.Controls.Add(this.checkBox5);
             this.panel1.Controls.Add(this.checkBox4);
             this.panel1.Controls.Add(this.btnAction);
@@ -219,6 +222,22 @@
             this.checkBox6.Text = "Tlauncher version";
             this.checkBox6.UseVisualStyleBackColor = false;
             // 
+            // Search_Click
+            // 
+            this.Search_Click.FileName = "Search_Click";
+            this.Search_Click.Multiselect = true;
+            // 
+            // btnLocalSearch
+            // 
+            this.btnLocalSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLocalSearch.Location = new System.Drawing.Point(83, 241);
+            this.btnLocalSearch.Name = "btnLocalSearch";
+            this.btnLocalSearch.Size = new System.Drawing.Size(172, 23);
+            this.btnLocalSearch.TabIndex = 11;
+            this.btnLocalSearch.Text = "Добавить моды локально";
+            this.btnLocalSearch.UseVisualStyleBackColor = true;
+            this.btnLocalSearch.Click += new System.EventHandler(this.btnLocalSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,6 +274,8 @@
         private System.Windows.Forms.Button btnAction;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.Button btnLocalSearch;
+        private System.Windows.Forms.OpenFileDialog Search_Click;
     }
 }
 
