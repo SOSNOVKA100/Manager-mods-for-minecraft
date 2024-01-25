@@ -25,12 +25,18 @@ namespace ChoseVersionMods
             public static string pathlegacyConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".tlauncher", "legacy", "Minecraft", "game", "mods", "mngConfig");
 
             //**                 **                          **//
-            public static string pathTlauncherMods = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Roaming", ".minecraft", "mods");
-            public static string pathTlauncherVersions = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Roaming", ".minecraft", "versions");
-            public static string pathTlauncherConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Roaming", ".minecraft", "mods", "mngConfig");
+            public static string pathTlauncherMods = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),  ".minecraft", "mods");
+            public static string pathTlauncherVersions = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft", "versions");
+            public static string pathTlauncherConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),".minecraft", "mods", "mngConfig");
             // Другие методы и свойства вашего класса
             public static string pathOtherDownload = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
         }
+
+
+        //label1.Text = "Путь к папке <link>legacyMods</link>: " + FileHandler.pathlegacyMods;
+      // label2.Text = "Путь к папке <link>TlauncherMods</link>: " + FileHandler.pathTlauncherMods;
+        //checkBox1.Checked = Directory.Exists(FileHandler.pathlegacyMods);
+        //checkBox6.Checked = Directory.Exists(FileHandler.pathTlauncherMods);
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -51,7 +57,8 @@ namespace ChoseVersionMods
             }
             else if (checkBox6.Checked == false && checkBox1.Checked == false)
             {
-                MessageBox.Show("Ни одна из поддержвиваемых версий лаунчера майнкрафт не обнаружена. Установите TLauncher или Legacy Launcher", "Ошибка поиска", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ни одна из поддержвиваемых версий лаунчера майнкрафт не обнаружена. Установите TLauncher или Legacy Launcher. Путь к legacy " + FileHandler.pathlegacyMods + " Путь у TLauncher "+ FileHandler.pathTlauncherMods
+                    , "Ошибка поиска", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (checkBox1.Checked == true)
             {

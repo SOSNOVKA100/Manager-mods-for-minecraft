@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnLocalSearch = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.btnAction = new System.Windows.Forms.Button();
@@ -43,7 +45,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.Search_Click = new System.Windows.Forms.OpenFileDialog();
-            this.btnLocalSearch = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +82,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(334, 286);
             this.panel1.TabIndex = 1;
+            // 
+            // btnLocalSearch
+            // 
+            this.btnLocalSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLocalSearch.Location = new System.Drawing.Point(83, 241);
+            this.btnLocalSearch.Name = "btnLocalSearch";
+            this.btnLocalSearch.Size = new System.Drawing.Size(172, 23);
+            this.btnLocalSearch.TabIndex = 11;
+            this.btnLocalSearch.Text = "Добавить моды локально";
+            this.btnLocalSearch.UseVisualStyleBackColor = true;
+            this.btnLocalSearch.Click += new System.EventHandler(this.btnLocalSearch_Click);
             // 
             // checkBox5
             // 
@@ -227,17 +239,6 @@
             this.Search_Click.FileName = "Search_Click";
             this.Search_Click.Multiselect = true;
             // 
-            // btnLocalSearch
-            // 
-            this.btnLocalSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLocalSearch.Location = new System.Drawing.Point(83, 241);
-            this.btnLocalSearch.Name = "btnLocalSearch";
-            this.btnLocalSearch.Size = new System.Drawing.Size(172, 23);
-            this.btnLocalSearch.TabIndex = 11;
-            this.btnLocalSearch.Text = "Добавить моды локально";
-            this.btnLocalSearch.UseVisualStyleBackColor = true;
-            this.btnLocalSearch.Click += new System.EventHandler(this.btnLocalSearch_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,8 +249,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Menedger mods for minecraft";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
