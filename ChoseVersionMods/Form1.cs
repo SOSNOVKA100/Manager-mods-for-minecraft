@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Windows.Forms.LinkLabel;
 
@@ -33,8 +34,8 @@ namespace ChoseVersionMods
         }
 
 
-        //label1.Text = "Путь к папке <link>legacyMods</link>: " + FileHandler.pathlegacyMods;
-      // label2.Text = "Путь к папке <link>TlauncherMods</link>: " + FileHandler.pathTlauncherMods;
+        //label1.Text = "Путь к папке legacyMods: " + FileHandler.pathlegacyMods;
+      // label2.Text = "Путь к папке TlauncherMods: " + FileHandler.pathTlauncherMods;
         //checkBox1.Checked = Directory.Exists(FileHandler.pathlegacyMods);
         //checkBox6.Checked = Directory.Exists(FileHandler.pathTlauncherMods);
         private void Form1_Load(object sender, EventArgs e)
@@ -137,52 +138,99 @@ namespace ChoseVersionMods
             if (checkBox1.Checked == true)
             {
 
-                if (CurrentVersion.SelectedItem != null)
+                if ( CurrentVersion . SelectedItem != null)
                 {
-                    string selectedVersion = CurrentVersion.SelectedItem.ToString();
-                    string versionNumbers = new String(selectedVersion.Where(char.IsDigit).ToArray()); // Получаем только цифры и точки из выбранного элемента
+                    string selectedVersion =  CurrentVersion . SelectedItem .ToString();
+                    string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
 
-                    string targetDirectory = FileHandler.pathlegacyMods; // Замените на вашу целевую директорию
-                    string newFolderPath = Path.Combine(targetDirectory, versionNumbers);
+                    string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                    string version = ""; // Инициализация переменной для версии
 
-                    if (!Directory.Exists(newFolderPath))
+                    // Используем регулярные выражения для поиска ключевого слова и версии
+                    Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                    Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                    if (keywordMatch.Success)
                     {
-                        Directory.CreateDirectory(newFolderPath);
-                        checkBox3.Checked = true;
-                        checkBox3.Text = "Создан";
+                        mainKeyword = keywordMatch.Value;
+                    }
+
+                    if (versionMatch.Success)
+                    {
+                        version = versionMatch.Value;
+                    }
+
+                    if (!string.IsNullOrEmpty(mainKeyword) && !string.IsNullOrEmpty(version))
+                    {
+                        string targetDirectory =  FileHandler . pathlegacyMods ; // целевая директория
+                        string newFolderPath = Path.Combine(targetDirectory, mainKeyword + " " + version);
+
+                        if (! Directory .Exists(newFolderPath))
+                        {
+                              Directory .CreateDirectory(newFolderPath);
+                                checkBox3 . Checked  = true;
+                                checkBox3 . Text  = "Создан";
+                        }
+                        else
+                        {
+                               checkBox2 . Checked  = true;
+                               checkBox2 . Text  = "Уже готов";
+                        }
                     }
                     else
                     {
-                        checkBox2.Checked = true;
-                        checkBox2.Text = "Уже готов";
+                       MessageBox .Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("What?");
+                     MessageBox .Show("What?");
                 }
             }
             else if (checkBox6.Checked == true)
             {
-
                 if (CurrentVersion.SelectedItem != null)
                 {
                     string selectedVersion = CurrentVersion.SelectedItem.ToString();
-                    string versionNumbers = new String(selectedVersion.Where(char.IsDigit).ToArray()); // Получаем только цифры и точки из выбранного элемента
+                    string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
 
-                    string targetDirectory = FileHandler.pathTlauncherMods; // Замените на вашу целевую директорию
-                    string newFolderPath = Path.Combine(targetDirectory, versionNumbers);
+                    string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                    string version = ""; // Инициализация переменной для версии
 
-                    if (!Directory.Exists(newFolderPath))
+                    // регулярные выражения для поиска ключевого слова и версии
+                    Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                    Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                    if (keywordMatch.Success)
                     {
-                        Directory.CreateDirectory(newFolderPath);
-                        checkBox3.Checked = true;
-                        checkBox3.Text = "Создан";
+                        mainKeyword = keywordMatch.Value;
+                    }
+
+                    if (versionMatch.Success)
+                    {
+                        version = versionMatch.Value;
+                    }
+
+                    if (!string.IsNullOrEmpty(mainKeyword) && !string.IsNullOrEmpty(version))
+                    {
+                        string targetDirectory = FileHandler.pathTlauncherMods; // целевая директория
+                        string newFolderPath = Path.Combine(targetDirectory, mainKeyword + " " + version);
+
+                        if (!Directory.Exists(newFolderPath))
+                        {
+                            Directory.CreateDirectory(newFolderPath);
+                            checkBox3.Checked = true;
+                            checkBox3.Text = "Создан";
+                        }
+                        else
+                        {
+                            checkBox2.Checked = true;
+                            checkBox2.Text = "Уже готов";
+                        }
                     }
                     else
                     {
-                        checkBox2.Checked = true;
-                        checkBox2.Text = "Уже готов";
+                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
                     }
                 }
                 else
@@ -201,21 +249,45 @@ namespace ChoseVersionMods
                 if (ChoseVersion.SelectedItem != null)
                 {
                     string selectedVersion = ChoseVersion.SelectedItem.ToString();
-                    string versionNumbers = new String(selectedVersion.Where(char.IsDigit).ToArray()); // Получаем только цифры и точки из выбранного элемента
+                    string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
 
-                    string targetDirectory = FileHandler.pathlegacyMods; // Замените на вашу целевую директорию
-                    string newFolderPath = Path.Combine(targetDirectory, versionNumbers);
+                    string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                    string version = ""; // Инициализация переменной для версии
 
-                    if (!Directory.Exists(newFolderPath))
+                    // Используем регулярные выражения для поиска ключевого слова и версии
+                    Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                    Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                    if (keywordMatch.Success)
                     {
-                        Directory.CreateDirectory(newFolderPath);
-                        checkBox5.Checked = true;
-                        checkBox5.Text = "Создан";
+                        mainKeyword = keywordMatch.Value;
+                    }
+
+                    if (versionMatch.Success)
+                    {
+                        version = versionMatch.Value;
+                    }
+
+                    if (!string.IsNullOrEmpty(mainKeyword) && !string.IsNullOrEmpty(version))
+                    {
+                        string targetDirectory = FileHandler.pathlegacyMods; // целевая директория
+                        string newFolderPath = Path.Combine(targetDirectory, mainKeyword + " " + version);
+
+                        if (!Directory.Exists(newFolderPath))
+                        {
+                            Directory.CreateDirectory(newFolderPath);
+                            checkBox5.Checked = true;
+                            checkBox5.Text = "Создан";
+                        }
+                        else
+                        {
+                            checkBox4.Checked = true;
+                            checkBox4.Text = "Уже готов";
+                        }
                     }
                     else
                     {
-                        checkBox4.Checked = true;
-                        checkBox4.Text = "Уже готов";
+                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
                     }
                 }
                 else
@@ -229,21 +301,45 @@ namespace ChoseVersionMods
                 if (ChoseVersion.SelectedItem != null)
                 {
                     string selectedVersion = ChoseVersion.SelectedItem.ToString();
-                    string versionNumbers = new String(selectedVersion.Where(char.IsDigit).ToArray()); // Получаем только цифры и точки из выбранного элемента
+                    string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
 
-                    string targetDirectory = FileHandler.pathTlauncherMods; // Замените на вашу целевую директорию
-                    string newFolderPath = Path.Combine(targetDirectory, versionNumbers);
+                    string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                    string version = ""; // Инициализация переменной для версии
 
-                    if (!Directory.Exists(newFolderPath))
+                    // Используем регулярные выражения для поиска ключевого слова и версии
+                    Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                    Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                    if (keywordMatch.Success)
                     {
-                        Directory.CreateDirectory(newFolderPath);
-                        checkBox5.Checked = true;
-                        checkBox5.Text = "Создан";
+                        mainKeyword = keywordMatch.Value;
+                    }
+
+                    if (versionMatch.Success)
+                    {
+                        version = versionMatch.Value;
+                    }
+
+                    if (!string.IsNullOrEmpty(mainKeyword) && !string.IsNullOrEmpty(version))
+                    {
+                        string targetDirectory = FileHandler.pathTlauncherMods; // целевая директория
+                        string newFolderPath = Path.Combine(targetDirectory, mainKeyword + " " + version);
+
+                        if (!Directory.Exists(newFolderPath))
+                        {
+                            Directory.CreateDirectory(newFolderPath);
+                            checkBox5.Checked = true;
+                            checkBox5.Text = "Создан";
+                        }
+                        else
+                        {
+                            checkBox4.Checked = true;
+                            checkBox4.Text = "Уже готов";
+                        }
                     }
                     else
                     {
-                        checkBox4.Checked = true;
-                        checkBox4.Text = "Уже готов";
+                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
                     }
                 }
                 else
@@ -268,20 +364,39 @@ namespace ChoseVersionMods
                     if (CurrentVersion.SelectedItem != null)
                     {
                         string selectedVersion = CurrentVersion.SelectedItem.ToString();
-                        string versionNumbers = GetVersionNumbers(selectedVersion);
+                        string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
+
+                        string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                        string version = ""; // Инициализация переменной для версии
+
+                        // Используем регулярные выражения для поиска ключевого слова и версии
+                        Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                        Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                        if (keywordMatch.Success)
+                        {
+                            mainKeyword = keywordMatch.Value;
+                        }
+
+                        if (versionMatch.Success)
+                        {
+                            version = versionMatch.Value;
+                        }
+                        string versionNumbers = mainKeyword + " " + version;
+                        MessageBox.Show(versionNumbers);
 
                         string sourceDirectory = FileHandler.pathlegacyMods; // Замените на вашу исходную директорию
-                        string targetDirectory = Path.Combine(FileHandler.pathlegacyMods, versionNumbers); // Замените на вашу целевую директорию
+                        Path.Combine(FileHandler.pathlegacyMods, versionNumbers); // Замените на вашу целевую директорию
                         label2.Text = versionNumbers;
-                        if (!Directory.Exists(targetDirectory))
+                        if (!Directory.Exists(versionNumbers))
                         {
-                            Directory.CreateDirectory(targetDirectory);
+                            Directory.CreateDirectory(versionNumbers);
                         }
 
                         string[] files = Directory.GetFiles(sourceDirectory, "*.jar");
                         foreach (string file in files)
                         {
-                            string destFile = Path.Combine(targetDirectory, Path.GetFileName(file));
+                            string destFile = Path.Combine(versionNumbers, Path.GetFileName(file));
 
                             if (File.Exists(destFile))
                             {
@@ -302,11 +417,40 @@ namespace ChoseVersionMods
                     if (ChoseVersion.SelectedItem != null)
                     {
                         string selectedVersion = ChoseVersion.SelectedItem.ToString();
-                        string versionNumbers = GetVersionNumbers(selectedVersion);
+                        string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
+
+                        string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                        string version = ""; // Инициализация переменной для версии
+
+                        // Используем регулярные выражения для поиска ключевого слова и версии
+                        Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                        Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                        if (keywordMatch.Success)
+                        {
+                            mainKeyword = keywordMatch.Value;
+                        }
+
+                        if (versionMatch.Success)
+                        {
+                            version = versionMatch.Value;
+                        }
+                      
+                        string versionNumbers = mainKeyword + " " + version;
+                        string GetVersionNumbers(string selectedVersionNumber)
+                        {
+                            // Обработка выбранной версии и извлечение нужных символов
+                            selectedVersionNumber = selectedVersionNumber.Replace("ForgeOptiFine ", "");
+                            selectedVersionNumber = selectedVersionNumber.Replace(".", "");
+
+                            return selectedVersionNumber; // Возвращает обработанную версию
+                        }
 
                         string sourceDirectory = Path.Combine(FileHandler.pathlegacyMods, versionNumbers); // Замените на вашу целевую директорию
                         string targetDirectory = FileHandler.pathlegacyMods; // Замените на вашу исходную директорию
-                        MessageBox.Show("Установлена версия " + versionNumbers, "Оповещение", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                       
+
+                        MessageBox.Show("Установлена версия " + versionNumbers, "Оповещение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (!Directory.Exists(targetDirectory))
                         {
                             Directory.CreateDirectory(targetDirectory);
@@ -315,7 +459,11 @@ namespace ChoseVersionMods
                         string[] files = Directory.GetFiles(sourceDirectory, "*.jar");
                         foreach (string file in files)
                         {
-                            string destFile = Path.Combine(targetDirectory, Path.GetFileName(file));
+                            // Удаление слова "OptiFine" из имени файла
+                            string fileName = Path.GetFileName(file);
+                            fileName = fileName.Replace("OptiFine", ""); // заменяем "OptiFine" на пустую строку
+
+                            string destFile = Path.Combine(targetDirectory, fileName);
 
                             if (File.Exists(destFile))
                             {
@@ -395,8 +543,10 @@ namespace ChoseVersionMods
                         string selectedVersion = ChoseVersion.SelectedItem.ToString();
                         string versionNumbers = GetVersionNumbers(selectedVersion);
 
+
                         string sourceDirectory = Path.Combine(FileHandler.pathTlauncherMods, versionNumbers); // Замените на вашу целевую директорию
                         string targetDirectory = FileHandler.pathTlauncherMods; // Замените на вашу исходную директорию
+
                         MessageBox.Show(versionNumbers);
                         if (!Directory.Exists(targetDirectory))
                         {
