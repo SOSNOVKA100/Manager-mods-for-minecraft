@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static System.Windows.Forms.LinkLabel;
 
 namespace ChoseVersionMods
 {
@@ -26,18 +25,13 @@ namespace ChoseVersionMods
             public static string pathlegacyConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".tlauncher", "legacy", "Minecraft", "game", "mods", "mngConfig");
 
             //**                 **                          **//
-            public static string pathTlauncherMods = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),  ".minecraft", "mods");
+            public static string pathTlauncherMods = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft", "mods");
             public static string pathTlauncherVersions = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft", "versions");
-            public static string pathTlauncherConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),".minecraft", "mods", "mngConfig");
+            public static string pathTlauncherConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft", "mods", "mngConfig");
             // Другие методы и свойства вашего класса
             public static string pathOtherDownload = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
         }
 
-
-        //label1.Text = "Путь к папке legacyMods: " + FileHandler.pathlegacyMods;
-      // label2.Text = "Путь к папке TlauncherMods: " + FileHandler.pathTlauncherMods;
-        //checkBox1.Checked = Directory.Exists(FileHandler.pathlegacyMods);
-        //checkBox6.Checked = Directory.Exists(FileHandler.pathTlauncherMods);
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -58,7 +52,7 @@ namespace ChoseVersionMods
             }
             else if (checkBox6.Checked == false && checkBox1.Checked == false)
             {
-                MessageBox.Show("Ни одна из поддержвиваемых версий лаунчера майнкрафт не обнаружена. Установите TLauncher или Legacy Launcher. Путь к legacy " + FileHandler.pathlegacyMods + " Путь у TLauncher "+ FileHandler.pathTlauncherMods
+                MessageBox.Show("Ни одна из поддержвиваемых версий лаунчера майнкрафт не обнаружена. Установите TLauncher или Legacy Launcher. Путь к legacy " + FileHandler.pathlegacyMods + " Путь у TLauncher " + FileHandler.pathTlauncherMods
                     , "Ошибка поиска", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (checkBox1.Checked == true)
@@ -138,9 +132,9 @@ namespace ChoseVersionMods
             if (checkBox1.Checked == true)
             {
 
-                if ( CurrentVersion . SelectedItem != null)
+                if (CurrentVersion.SelectedItem != null)
                 {
-                    string selectedVersion =  CurrentVersion . SelectedItem .ToString();
+                    string selectedVersion = CurrentVersion.SelectedItem.ToString();
                     string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
 
                     string mainKeyword = ""; // Инициализация переменной для ключевого слова
@@ -162,29 +156,31 @@ namespace ChoseVersionMods
 
                     if (!string.IsNullOrEmpty(mainKeyword) && !string.IsNullOrEmpty(version))
                     {
-                        string targetDirectory =  FileHandler . pathlegacyMods ; // целевая директория
+                        string targetDirectory = FileHandler.pathlegacyMods; // целевая директория
                         string newFolderPath = Path.Combine(targetDirectory, mainKeyword + " " + version);
 
-                        if (! Directory .Exists(newFolderPath))
+                        if (!Directory.Exists(newFolderPath))
                         {
-                              Directory .CreateDirectory(newFolderPath);
-                                checkBox3 . Checked  = true;
-                                checkBox3 . Text  = "Создан";
+                            Directory.CreateDirectory(newFolderPath);
+                            checkBox3.Checked = true;
+                            checkBox3.Text = "Создан";
                         }
                         else
                         {
-                               checkBox2 . Checked  = true;
-                               checkBox2 . Text  = "Уже готов";
+                            checkBox2.Checked = true;
+                            checkBox2.Text = "Уже готов";
                         }
                     }
                     else
                     {
-                       MessageBox .Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
+                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge). ",
+                            "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        checkBox2.Checked = false; checkBox3.Checked = false;
                     }
                 }
                 else
                 {
-                     MessageBox .Show("What?");
+                    MessageBox.Show("What?");
                 }
             }
             else if (checkBox6.Checked == true)
@@ -230,7 +226,9 @@ namespace ChoseVersionMods
                     }
                     else
                     {
-                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
+                        MessageBox.Show("Выбранный элемент не содержит (Fabric, Quilt, Forge) ",
+                            "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        checkBox2.Checked = false; checkBox3.Checked = false;
                     }
                 }
                 else
@@ -287,7 +285,9 @@ namespace ChoseVersionMods
                     }
                     else
                     {
-                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
+                        MessageBox.Show("Выбранный элемент не содержит (Fabric, Quilt, Forge) ",
+                            "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        checkBox4.Checked = false; checkBox5.Checked = false;
                     }
                 }
                 else
@@ -339,7 +339,9 @@ namespace ChoseVersionMods
                     }
                     else
                     {
-                        MessageBox.Show("Выбранный элемент не содержит ключевых слов (Fabric, Quilt, Forge) или версии.");
+                        MessageBox.Show("Выбранный элемент не содержит (Fabric, Quilt, Forge) ",
+                             "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        checkBox4.Checked = false; checkBox5.Checked = false;
                     }
                 }
                 else
@@ -382,29 +384,35 @@ namespace ChoseVersionMods
                         {
                             version = versionMatch.Value;
                         }
-                        string versionNumbers = mainKeyword + " " + version;
-                        MessageBox.Show(versionNumbers);
 
-                        string sourceDirectory = FileHandler.pathlegacyMods; // Замените на вашу исходную директорию
-                        Path.Combine(FileHandler.pathlegacyMods, versionNumbers); // Замените на вашу целевую директорию
-                        label2.Text = versionNumbers;
-                        if (!Directory.Exists(versionNumbers))
+                        string versionNumbers = mainKeyword + " " + version;                     
+                        string sourceDirectory = FileHandler.pathlegacyMods;
+                        string targetDirectory = Path.Combine(FileHandler.pathlegacyMods, versionNumbers); // Замените на вашу целевую директорию ; // Замените на вашу исходную директорию
+
+
+                        MessageBox.Show("Установлена версия " + versionNumbers, "Оповещение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (!Directory.Exists(targetDirectory))
                         {
-                            Directory.CreateDirectory(versionNumbers);
+                            Directory.CreateDirectory(targetDirectory);
                         }
 
                         string[] files = Directory.GetFiles(sourceDirectory, "*.jar");
                         foreach (string file in files)
                         {
-                            string destFile = Path.Combine(versionNumbers, Path.GetFileName(file));
+                            // Удаление слова "OptiFine" из имени файла
+                            string fileName = Path.GetFileName(file);
+                            fileName = fileName.Replace("OptiFine", ""); // заменяем "OptiFine" на пустую строку
+
+                            string destFile = Path.Combine(targetDirectory, fileName);
 
                             if (File.Exists(destFile))
                             {
-                                var result = MessageBox.Show("Файл с таким именем уже существует. Заменить его?", "Замена файла", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                var result = MessageBox.Show("Файл с таким именем уже установлен. Заменить его?", "Замена файла", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 if (result == DialogResult.Yes)
                                 {
                                     File.Delete(destFile); // Удаляем существующий файл
                                     File.Move(file, destFile); // Перемещаем файл и разрешаем замену
+
                                 }
                             }
                             else
@@ -435,20 +443,11 @@ namespace ChoseVersionMods
                         {
                             version = versionMatch.Value;
                         }
-                      
+
                         string versionNumbers = mainKeyword + " " + version;
-                        string GetVersionNumbers(string selectedVersionNumber)
-                        {
-                            // Обработка выбранной версии и извлечение нужных символов
-                            selectedVersionNumber = selectedVersionNumber.Replace("ForgeOptiFine ", "");
-                            selectedVersionNumber = selectedVersionNumber.Replace(".", "");
-
-                            return selectedVersionNumber; // Возвращает обработанную версию
-                        }
-
                         string sourceDirectory = Path.Combine(FileHandler.pathlegacyMods, versionNumbers); // Замените на вашу целевую директорию
                         string targetDirectory = FileHandler.pathlegacyMods; // Замените на вашу исходную директорию
-                       
+
 
                         MessageBox.Show("Установлена версия " + versionNumbers, "Оповещение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (!Directory.Exists(targetDirectory))
@@ -472,6 +471,7 @@ namespace ChoseVersionMods
                                 {
                                     File.Delete(destFile); // Удаляем существующий файл
                                     File.Move(file, destFile); // Перемещаем файл и разрешаем замену
+
                                 }
                             }
                             else
@@ -507,11 +507,31 @@ namespace ChoseVersionMods
                     if (CurrentVersion.SelectedItem != null)
                     {
                         string selectedVersion = CurrentVersion.SelectedItem.ToString();
-                        string versionNumbers = GetVersionNumbers(selectedVersion);
+                        string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
 
-                        string sourceDirectory = FileHandler.pathTlauncherMods; // Замените на вашу исходную директорию
-                        string targetDirectory = Path.Combine(FileHandler.pathTlauncherMods, versionNumbers); // Замените на вашу целевую директорию
-                        label2.Text = versionNumbers;
+                        string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                        string version = ""; // Инициализация переменной для версии
+
+                        // Используем регулярные выражения для поиска ключевого слова и версии
+                        Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                        Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                        if (keywordMatch.Success)
+                        {
+                            mainKeyword = keywordMatch.Value;
+                        }
+
+                        if (versionMatch.Success)
+                        {
+                            version = versionMatch.Value;
+                        }
+
+                        string versionNumbers = mainKeyword + " " + version;
+                        string sourceDirectory = FileHandler.pathTlauncherMods;
+                        string targetDirectory = Path.Combine(FileHandler.pathTlauncherMods, versionNumbers); // Замените на вашу целевую директорию ; // Замените на вашу исходную директорию
+
+
+                        MessageBox.Show("Установлена версия " + versionNumbers, "Оповещение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (!Directory.Exists(targetDirectory))
                         {
                             Directory.CreateDirectory(targetDirectory);
@@ -520,43 +540,11 @@ namespace ChoseVersionMods
                         string[] files = Directory.GetFiles(sourceDirectory, "*.jar");
                         foreach (string file in files)
                         {
-                            string destFile = Path.Combine(targetDirectory, Path.GetFileName(file));
+                            // Удаление слова "OptiFine" из имени файла
+                            string fileName = Path.GetFileName(file);
+                            fileName = fileName.Replace("OptiFine", ""); // заменяем "OptiFine" на пустую строку
 
-                            if (File.Exists(destFile))
-                            {
-                                var result = MessageBox.Show("Файл с таким именем уже существует. Заменить его?", "Замена файла", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                if (result == DialogResult.Yes)
-                                {
-                                    File.Delete(destFile); // Удаляем существующий файл
-                                    File.Move(file, destFile); // Перемещаем файл и разрешаем замену
-                                }
-                            }
-                            else
-                            {
-                                File.Move(file, destFile); // Просто перемещаем файл
-                            }
-                        }
-                    }
-
-                    if (ChoseVersion.SelectedItem != null)
-                    {
-                        string selectedVersion = ChoseVersion.SelectedItem.ToString();
-                        string versionNumbers = GetVersionNumbers(selectedVersion);
-
-
-                        string sourceDirectory = Path.Combine(FileHandler.pathTlauncherMods, versionNumbers); // Замените на вашу целевую директорию
-                        string targetDirectory = FileHandler.pathTlauncherMods; // Замените на вашу исходную директорию
-
-                        MessageBox.Show(versionNumbers);
-                        if (!Directory.Exists(targetDirectory))
-                        {
-                            Directory.CreateDirectory(targetDirectory);
-                        }
-
-                        string[] files = Directory.GetFiles(sourceDirectory, "*.jar");
-                        foreach (string file in files)
-                        {
-                            string destFile = Path.Combine(targetDirectory, Path.GetFileName(file));
+                            string destFile = Path.Combine(targetDirectory, fileName);
 
                             if (File.Exists(destFile))
                             {
@@ -565,37 +553,94 @@ namespace ChoseVersionMods
                                 {
                                     File.Delete(destFile); // Удаляем существующий файл
                                     File.Move(file, destFile); // Перемещаем файл и разрешаем замену
+
                                 }
                             }
                             else
                             {
                                 File.Move(file, destFile); // Просто перемещаем файл
+                                MessageBox.Show("Первое дествие (file) " + file + " (destFile) " + destFile);
+                            }
+                        }
+                    }
+
+                    if (ChoseVersion.SelectedItem != null)
+                    {
+                        string selectedVersion = ChoseVersion.SelectedItem.ToString();
+                        string cleanedVersion = selectedVersion.Replace("OptiFine", ""); // Удаление "OptiFine" из выбранного элемента
+
+                        string mainKeyword = ""; // Инициализация переменной для ключевого слова
+                        string version = ""; // Инициализация переменной для версии
+
+                        // Используем регулярные выражения для поиска ключевого слова и версии
+                        Match keywordMatch = Regex.Match(cleanedVersion, @"\b(Fabric|Quilt|Forge)\b", RegexOptions.IgnoreCase);
+                        Match versionMatch = Regex.Match(cleanedVersion, @"\d+(\.\d+)+");
+
+                        if (keywordMatch.Success)
+                        {
+                            mainKeyword = keywordMatch.Value;
+                        }
+
+                        if (versionMatch.Success)
+                        {
+                            version = versionMatch.Value;
+                        }
+
+                        string versionNumbers = mainKeyword + " " + version;
+                        string sourceDirectory = Path.Combine(FileHandler.pathTlauncherMods, versionNumbers); // Замените на вашу целевую директорию
+                        string targetDirectory = FileHandler.pathTlauncherMods; // Замените на вашу исходную директорию
+
+
+                        MessageBox.Show("Установлена версия " + versionNumbers, "Оповещение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (!Directory.Exists(targetDirectory))
+                        {
+                            Directory.CreateDirectory(targetDirectory);
+                        }
+
+                        string[] files = Directory.GetFiles(sourceDirectory, "*.jar");
+                        foreach (string file in files)
+                        {
+                            // Удаление слова "OptiFine" из имени файла
+                            string fileName = Path.GetFileName(file);
+                            fileName = fileName.Replace("OptiFine", ""); // заменяем "OptiFine" на пустую строку
+
+                            string destFile = Path.Combine(targetDirectory, fileName);
+
+                            if (File.Exists(destFile))
+                            {
+                                var result = MessageBox.Show("Файл с таким именем уже установлен. Заменить его?", "Замена файла", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (result == DialogResult.Yes)
+                                {
+                                    File.Delete(destFile); // Удаляем существующий файл
+                                    File.Move(file, destFile); // Перемещаем файл и разрешаем замену
+
+                                }
+                            }
+                            else
+                            {
+                                File.Move(file, destFile); // Просто перемещаем файл
+                                MessageBox.Show("Второе дествие (file) " + file + " (destFile) " + destFile);
                             }
                         }
                     }
                     CurrentVersion.SelectedIndex = ChoseVersion.SelectedIndex;
                     CurrentVersion.Enabled = false;
 
-                    string modsFolder = Path.Combine(Environment.CurrentDirectory, FileHandler.pathTlauncherConfig);
+                    string modsFolder = Path.Combine(Environment.CurrentDirectory, FileHandler.pathlegacyConfig);
                     string currentVersionFile = Path.Combine(modsFolder, "current_version.ini");
 
                     if (!Directory.Exists(modsFolder))
                     {
                         Directory.CreateDirectory(modsFolder);
                     }
-
                     string activeItem = CurrentVersion.SelectedItem.ToString(); // Получаем выбранный элемент из комбо-бокса
                     File.WriteAllText(currentVersionFile, activeItem);
-
                 }
                 else
                 {
                     MessageBox.Show("Не все готово!", "Готовность", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-
-
-
         }
 
         private void btnLocalSearch_Click(object sender, EventArgs e)//поиск jar на пк
@@ -652,7 +697,7 @@ namespace ChoseVersionMods
                 {
                     MessageBox.Show("Не выбранна текущая версия", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                
+
             }
             else if (checkBox6.Checked == true)
             {
@@ -706,7 +751,7 @@ namespace ChoseVersionMods
                     MessageBox.Show("Не выбранна текущая версия", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            
+
         }
     }
 }
